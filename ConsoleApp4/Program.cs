@@ -10,17 +10,19 @@ namespace ConsoleApp4
         static void Main(string[] args)
         {
             TextProcessor textProcessor = new TextProcessor();
+            List<string> enteredSentences = new List<string>(); // Добавлен список для хранения введенных предложений.
 
             // Запрашиваем количество предложений
             Console.WriteLine("Введите количество предложений:");
             int numSentences = int.Parse(Console.ReadLine());
 
-            // Запрашиваем предложения
+            // Запрашиваем и сохраняем предложения
             for (int i = 0; i < numSentences; i++)
             {
                 Console.WriteLine($"Введите предложение {i + 1}:");
                 string sentence = Console.ReadLine();
                 textProcessor.AddSentence(sentence);
+                enteredSentences.Add(sentence); // Сохраняем введенные предложения в список.
             }
 
             int choice = 0;
@@ -30,6 +32,7 @@ namespace ConsoleApp4
                 Console.WriteLine("Выберите задание:");
                 Console.WriteLine("1. Найти слово, встречающееся в каждом предложении.");
                 Console.WriteLine("2. Найти предложения без слова и с датой.");
+                Console.WriteLine("3. Вывести введенные предложения."); // Добавлен пункт.
                 Console.WriteLine("0. Выйти из программы.");
 
                 try
@@ -64,10 +67,25 @@ namespace ConsoleApp4
 
                         List<Sentence> sentencesWithDate = textProcessor.GetSentencesWithoutWordAndWithDate(wordToExclude);
 
-                        Console.WriteLine("Предложения без заданного слова и с датой:");
-                        foreach (var sentence in sentencesWithDate)
+                        if (sentencesWithDate.Count == 0)
                         {
-                            Console.WriteLine(sentence.ToString());
+                            Console.WriteLine("Нет предложений с датой и без указанного слова.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Предложения без заданного слова и с датой:");
+                            foreach (var sentence in sentencesWithDate)
+                            {
+                                Console.WriteLine(sentence.ToString());
+                            }
+                        }
+                        break;
+
+                    case 3:
+                        Console.WriteLine("Введенные предложения:");
+                        foreach (var sentence in enteredSentences)
+                        {
+                            Console.WriteLine(sentence);
                         }
                         break;
 
