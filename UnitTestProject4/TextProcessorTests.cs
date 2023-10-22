@@ -35,5 +35,43 @@ namespace UnitTestProject4
             // Assert
             Assert.AreEqual(1, sentences.Count);
         }
+
+        [TestMethod]
+        public void AddMultipleSentences_Test()
+        {
+            // Arrange
+            TextProcessor textProcessor = new TextProcessor();
+
+            // Act
+            textProcessor.AddSentence("Это первое предложение.");
+            textProcessor.AddSentence("Это второе предложение.");
+
+            // Assert
+            Assert.AreEqual(2, textProcessor.Sentences.Count);
+        }
+
+        [TestMethod]
+        public void SentencesListStartsEmpty_Test()
+        {
+            // Arrange
+            TextProcessor textProcessor = new TextProcessor();
+
+            // Act & Assert
+            CollectionAssert.AreEqual(new List<Sentence>(), textProcessor.Sentences);
+        }
+
+        [TestMethod]
+        public void GetSentencesWithoutWordAndWithDate_NoMatches_Test()
+        {
+            // Arrange
+            TextProcessor textProcessor = new TextProcessor();
+            textProcessor.AddSentence("Это пример предложения без даты.");
+
+            // Act
+            List<Sentence> sentences = textProcessor.GetSentencesWithoutWordAndWithDate("слово");
+
+            // Assert
+            Assert.AreEqual(0, sentences.Count);
+        }
     }
 }

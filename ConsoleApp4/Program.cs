@@ -29,11 +29,20 @@ namespace ConsoleApp4
 
             while (true)
             {
-                Console.WriteLine("Выберите задание:");
-                Console.WriteLine("1. Найти слово, встречающееся в каждом предложении.");
-                Console.WriteLine("2. Найти предложения без слова и с датой.");
-                Console.WriteLine("3. Вывести введенные предложения."); // Добавлен пункт.
-                Console.WriteLine("0. Выйти из программы.");
+                Console.Clear();
+
+                Console.WriteLine("|==============================================|");
+                Console.WriteLine("|          Добро пожаловать в программу        |");
+                Console.WriteLine("|           Обработка текстовых данных         |");
+                Console.WriteLine("|==============================================|");
+                Console.WriteLine("|               Выберите задание:              |");
+                Console.WriteLine("|    1. Найти слово, встречающееся в каждом    |");
+                Console.WriteLine("|                 предложении.                 |");
+                Console.WriteLine("|   2. Найти предложения без слова и с датой.  |");
+                Console.WriteLine("|       3. Вывести введенные предложения.      |");
+                Console.WriteLine("|            0. Выйти из программы.            |");
+                Console.WriteLine("|==============================================|");
+
 
                 try
                 {
@@ -48,6 +57,7 @@ namespace ConsoleApp4
                 switch (choice)
                 {
                     case 1:
+                        PrintEnteredSentences(enteredSentences);
                         Console.WriteLine("Введите слово для поиска:");
                         string wordToFind = Console.ReadLine();
                         bool wordFoundInAll = textProcessor.Sentences.TrueForAll(sentence => sentence.ContainsWord(wordToFind));
@@ -59,9 +69,14 @@ namespace ConsoleApp4
                         {
                             Console.WriteLine($"Слово '{wordToFind}' не встречается во всех предложениях.");
                         }
+
+                        Console.WriteLine("Нажмите Enter для продолжения...");
+                        Console.ReadLine();
+                        Console.Clear();
                         break;
 
                     case 2:
+                        PrintEnteredSentences(enteredSentences);
                         Console.WriteLine("Введите слово, которого не должно быть в предложениях:");
                         string wordToExclude = Console.ReadLine();
 
@@ -73,20 +88,20 @@ namespace ConsoleApp4
                         }
                         else
                         {
-                            Console.WriteLine("Предложения без заданного слова и с датой:");
-                            foreach (var sentence in sentencesWithDate)
-                            {
-                                Console.WriteLine(sentence.ToString());
-                            }
+                            PrintEnteredSentencesWithDate(sentencesWithDate);
                         }
+
+                        Console.WriteLine("Нажмите Enter для продолжения...");
+                        Console.ReadLine();
+                        Console.Clear();
                         break;
 
                     case 3:
-                        Console.WriteLine("Введенные предложения:");
-                        foreach (var sentence in enteredSentences)
-                        {
-                            Console.WriteLine(sentence);
-                        }
+                        PrintEnteredSentences(enteredSentences);
+
+                        Console.WriteLine("Нажмите Enter для продолжения...");
+                        Console.ReadLine();
+                        Console.Clear();
                         break;
 
                     case 0:
@@ -96,7 +111,39 @@ namespace ConsoleApp4
                         Console.WriteLine("Неправильный выбор.");
                         break;
                 }
+
             }
+        }
+        private static void PrintEnteredSentences(List<string> sentences)
+        {
+            Console.WriteLine();
+            Console.WriteLine("|===============================================|");
+            Console.WriteLine("|             Введенные предложения             |");
+            Console.WriteLine("|===============================================|");
+
+            for (int i = 0; i < sentences.Count; i++)
+            {
+                Console.WriteLine($"|Предложение {i + 1}: {sentences[i]}");
+            }
+
+            Console.WriteLine("|===============================================|");
+            Console.WriteLine();
+        }
+
+        private static void PrintEnteredSentencesWithDate(List<Sentence> sentences)
+        {
+            Console.WriteLine();
+            Console.WriteLine("|===============================================|");
+            Console.WriteLine("|   Предложения без заданного слова и с датой   |");
+            Console.WriteLine("|===============================================|");
+
+            for (int i = 0; i < sentences.Count; i++)
+            {
+                Console.WriteLine($"|Предложение {i + 1}: {sentences[i]}");
+            }
+
+            Console.WriteLine("|===============================================|");
+            Console.WriteLine();
         }
     }
 }
