@@ -17,7 +17,7 @@ namespace UnitTestProject4
             textProcessor.AddSentence("Это пример предложения.");
 
             // Assert
-            Assert.AreEqual(1, textProcessor.Sentences.Count);
+            Assert.AreEqual(1, textProcessor.SentenceCount);
         }
 
         [TestMethod]
@@ -25,15 +25,15 @@ namespace UnitTestProject4
         {
             // Arrange
             TextProcessor textProcessor = new TextProcessor();
-            textProcessor.AddSentence("Это пример предложения с датой 10/21/2023.");
+            textProcessor.AddSentence("Это пример предложения с датой 22/10/2023.");
             textProcessor.AddSentence("В этом предложении нет даты.");
-            textProcessor.AddSentence("Другое предложение с датой 11.15.2023.");
+            textProcessor.AddSentence("Другое предложение с датой 22.10.2023.");
 
             // Act
-            List<Sentence> sentences = textProcessor.GetSentencesWithoutWordAndWithDate("пример");
+            Sentence[] sentences = textProcessor.GetSentencesWithoutWordAndWithDate("пример");
 
             // Assert
-            Assert.AreEqual(1, sentences.Count);
+            Assert.AreEqual(1, sentences.Length);
         }
 
         [TestMethod]
@@ -47,7 +47,7 @@ namespace UnitTestProject4
             textProcessor.AddSentence("Это второе предложение.");
 
             // Assert
-            Assert.AreEqual(2, textProcessor.Sentences.Count);
+            Assert.AreEqual(2, textProcessor.SentenceCount);
         }
 
         [TestMethod]
@@ -68,10 +68,10 @@ namespace UnitTestProject4
             textProcessor.AddSentence("Это пример предложения без даты.");
 
             // Act
-            List<Sentence> sentences = textProcessor.GetSentencesWithoutWordAndWithDate("слово");
+            Sentence[] sentences = textProcessor.GetSentencesWithoutWordAndWithDate("слово");
 
             // Assert
-            Assert.AreEqual(0, sentences.Count);
+            Assert.AreEqual(0, sentences.Length);
         }
     }
 }
